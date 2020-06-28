@@ -6,7 +6,13 @@ defmodule MyApp.BillingTest do
   describe "subscribers" do
     alias MyApp.Billing.Subscriber
 
-    @valid_attrs %{}
+
+    @valid_attrs %{
+      user: %{
+        email: "heyhey@space-rocket.com",
+        password: "itsasupersecret"
+      }
+    }
     @update_attrs %{}
     @invalid_attrs %{}
 
@@ -15,6 +21,7 @@ defmodule MyApp.BillingTest do
         attrs
         |> Enum.into(@valid_attrs)
         |> Billing.create_subscriber()
+        |> IO.inspect
 
       subscriber
     end

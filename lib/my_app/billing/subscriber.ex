@@ -17,5 +17,6 @@ defmodule MyApp.Billing.Subscriber do
     |> cast(attrs, [])
     |> validate_required([])
     |> unique_constraint(:user_id)
+    |> cast_assoc(:user, with: &User.registration_changeset/2, required: true)
   end
 end
