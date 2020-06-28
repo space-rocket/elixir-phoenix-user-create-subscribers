@@ -7,6 +7,11 @@
     <%= @org.name %>
   </li>
 
+	<li>
+		<strong>Org:</strong>
+		<%= subscriber_email(@org) %>
+	</li>
+
 </ul>
 
 <span><%= link "Edit", to: Routes.org_path(@conn, :edit, @org) %></span>

@@ -1,9 +1,11 @@
 defmodule MyApp.Orgs.Org do
   use Ecto.Schema
   import Ecto.Changeset
+  alias MyApp.Billing.Subscriber
 
   schema "orgs" do
     field :name, :string
+    belongs_to :subscriber, Subscriber
 
     timestamps()
   end

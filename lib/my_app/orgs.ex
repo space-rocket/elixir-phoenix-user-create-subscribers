@@ -7,6 +7,8 @@ defmodule MyApp.Orgs do
   alias MyApp.Repo
 
   alias MyApp.Orgs.Org
+  alias MyApp.Billing.Subscriber
+  # alias MyApp.Accounts.User
 
   @doc """
   Returns the list of orgs.
@@ -18,7 +20,9 @@ defmodule MyApp.Orgs do
 
   """
   def list_orgs do
-    Repo.all(Org)
+    Org
+    |> Repo.all()
+    |> Repo.preload(subscriber: [:user])
   end
 
   @doc """
@@ -35,7 +39,11 @@ defmodule MyApp.Orgs do
       ** (Ecto.NoResultsError)
 
   """
-  def get_org!(id), do: Repo.get!(Org, id)
+  def get_org!(id) do 
+    Org
+    |> Repo.get!(id)
+    |> Repo.preload(subscriber: [:user])
+  end
 
   @doc """
   Creates a org.
@@ -49,12 +57,26 @@ defmodule MyApp.Orgs do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_org(attrs \\ %{}) do
+  def create_org(%Subscriber{} = subscriber, attrs \\ %{}) do
     %Org{}
     |> Org.changeset(attrs)
+    |> Ecto.Changeset.put_change(:subscriber_id, subscriber.id)
     |> Repo.insert()
   end
 
+  def ensure_subscriber_exists(%MyApp.Accounts.User{} = user) do
+    IO.inspect("🚌 user")
+    IO.inspect(user)
+    %Subscriber{user_id: user.id}
+    |> Ecto.Changeset.change()
+    |> Ecto.Changeset.unique_constraint(:user_id)
+    |> Repo.insert()
+    |> handle_existing_subscriber()
+  end
+  defp handle_existing_subscriber({:ok, subscriber}), do: subscriber
+  defp handle_existing_subscriber({:error, changeset}) do
+    Repo.get_by!(Subscriber, user_id: changeset.data.user_id)
+  end
   @doc """
   Updates a org.
 

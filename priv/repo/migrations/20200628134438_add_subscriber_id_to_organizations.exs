@@ -3,8 +3,7 @@ defmodule MyApp.Repo.Migrations.AddSubscriberIdToOrganizations do
 
   def change do
     alter table(:orgs) do
-      add :subscriber_id, references(:subscribers, on_delete: :delete_all), 
-      null: false
+      add :subscriber_id, references(:subscribers, on_delete: :delete_all), null: false
     end
 
     create index(:orgs, [:subscriber_id])

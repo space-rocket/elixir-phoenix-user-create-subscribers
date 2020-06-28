@@ -7,6 +7,7 @@ defmodule MyApp.Billing do
   alias MyApp.Repo
 
   alias MyApp.Billing.Subscriber
+  # alias MyApp.Accounts.User
 
   @doc """
   Returns the list of subscribers.
@@ -18,7 +19,9 @@ defmodule MyApp.Billing do
 
   """
   def list_subscribers do
-    Repo.all(Subscriber)
+    Subscriber
+    |> Repo.all()
+    |> Repo.preload(:user)
   end
 
   @doc """
@@ -35,24 +38,11 @@ defmodule MyApp.Billing do
       ** (Ecto.NoResultsError)
 
   """
-  def get_subscriber!(id), do: Repo.get!(Subscriber, id)
 
-  @doc """
-  Creates a subscriber.
-
-  ## Examples
-
-      iex> create_subscriber(%{field: value})
-      {:ok, %Subscriber{}}
-
-      iex> create_subscriber(%{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def create_subscriber(attrs \\ %{}) do
-    %Subscriber{}
-    |> Subscriber.changeset(attrs)
-    |> Repo.insert()
+  def get_subscriber!(id) do
+    Subscriber
+    |> Repo.get!(id)
+    |> Repo.preload(:user)
   end
 
   @doc """
