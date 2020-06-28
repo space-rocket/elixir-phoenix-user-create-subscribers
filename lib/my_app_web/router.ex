@@ -21,6 +21,7 @@ defmodule MyAppWeb.Router do
 
     get "/", PageController, :index
     resources "/posts", PostController
+    resources "/orgs", OrgController
   end
 
   # Other scopes may use custom stacks.

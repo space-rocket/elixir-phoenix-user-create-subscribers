@@ -1,0 +1,13 @@
+<h1>Show Org</h1>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @org.name %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.org_path(@conn, :edit, @org) %></span>
+<span><%= link "Back", to: Routes.org_path(@conn, :index) %></span>

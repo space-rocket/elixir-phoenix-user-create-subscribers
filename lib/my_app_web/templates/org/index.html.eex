@@ -1,0 +1,26 @@
+<h1>Listing Orgs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for org <- @orgs do %>
+    <tr>
+      <td><%= org.name %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.org_path(@conn, :show, org) %></span>
+        <span><%= link "Edit", to: Routes.org_path(@conn, :edit, org) %></span>
+        <span><%= link "Delete", to: Routes.org_path(@conn, :delete, org), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Org", to: Routes.org_path(@conn, :new) %></span>
