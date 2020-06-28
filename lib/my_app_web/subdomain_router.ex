@@ -1,7 +1,7 @@
 defmodule MyAppWeb.SubdomainRouter do
   use MyAppWeb, :router
 
-  import MyAppWeb.UserAuth
+  import MyAppWeb.Subdomain.UserAuth
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -10,6 +10,11 @@ defmodule MyAppWeb.SubdomainRouter do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug :fetch_current_user
+    plug :subdomain_layout
+  end
+
+  pipeline :subdomain_layout do
+    plug :put_layout, {MyAppWeb.Subdomain.LayoutView, "app.html"}
   end
 
   pipeline :api do

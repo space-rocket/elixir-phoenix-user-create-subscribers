@@ -1,6 +1,6 @@
 <h1>Log in</h1>
 
-<%= form_for @conn, Routes.user_session_path(@conn, :create), [as: :user], fn f -> %>
+<%= form_for @conn, SubdomainRoutes.user_session_path(@conn, :create), [as: :user], fn f -> %>
   <%= if @error_message do %>
     <div class="alert alert-danger">
       <p><%= @error_message %></p>
@@ -8,10 +8,10 @@
   <% end %>
 
   <%= label f, :email %>
-  <%= email_input f, :email, required: true %>
+  <%= email_input f, :email, required: true, value: "mchavez@space-rocket.com" %>
 
   <%= label f, :password %>
-  <%= password_input f, :password, required: true %>
+  <%= password_input f, :password, required: true, value: "w77VrAe!v@le" %>
 
   <%= label f, :remember_me, "Keep me logged in for 60 days" %>
   <%= checkbox f, :remember_me %>

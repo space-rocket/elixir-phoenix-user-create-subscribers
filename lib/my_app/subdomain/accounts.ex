@@ -38,8 +38,8 @@ defmodule MyApp.Subdomain.Accounts do
 
   """
   def get_user_by_email_and_password(email, password)
-      when is_binary(email) and is_binary(password) do
-    user = Repo.get_by(User, email: email)
+    when is_binary(email) and is_binary(password) do
+      user = Repo.get_by(User, [email: email], prefix: Triplex.to_prefix("site-1"))
     if User.valid_password?(user, password), do: user
   end
 
@@ -229,7 +229,7 @@ defmodule MyApp.Subdomain.Accounts do
   """
   def get_user_by_session_token(token) do
     {:ok, query} = UserToken.verify_session_token_query(token)
-    Repo.one(query)
+    Repo.one(query, prefix: Triplex.to_prefix("site-1"))
   end
 
   @doc """

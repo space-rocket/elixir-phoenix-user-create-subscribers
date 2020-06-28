@@ -1,8 +1,8 @@
 defmodule MyAppWeb.Subdomain.UserSessionController do
   use MyAppWeb, :controller
 
-  alias MyApp.Accounts
-  alias MyAppWeb.UserAuth
+  alias MyApp.Subdomain.Accounts
+  alias MyAppWeb.Subdomain.UserAuth
 
   def new(conn, _params) do
     render(conn, "new.html", error_message: nil)
