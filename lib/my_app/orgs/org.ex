@@ -16,5 +16,6 @@ defmodule MyApp.Orgs.Org do
     |> cast(attrs, [:name])
     |> validate_required([:name])
     |> unique_constraint(:name)
+    # |> cast_assoc(:subscriber, with: &Subscriber.changeset/2, required: true)
   end
 end

@@ -21,7 +21,7 @@ defmodule MyApp.Orgs do
   def list_orgs do
     Org
     |> Repo.all()
-    |> Repo.preload(subscriber: [:user])
+    # |> Repo.preload(subscriber: [:user])
   end
 
   @doc """

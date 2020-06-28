@@ -2,19 +2,47 @@ defmodule MyApp.OrgsTest do
   use MyApp.DataCase
 
   alias MyApp.Orgs
+  alias MyApp.Billing
 
   describe "orgs" do
     alias MyApp.Orgs.Org
 
-    @valid_attrs %{name: "some name"}
+    @valid_subscriber_attrs %{
+      user: %{
+        email: "heyhey@space-rocket.com",
+        password: "itsasupersecret"
+      }
+    }
+
+    def subscriber_fixture(attrs \\ %{}) do
+      {:ok, subscriber} =
+        attrs
+        |> Enum.into(@valid_subscriber_attrs)
+        |> Billing.create_subscriber()
+
+      subscriber
+    end
+
+    @valid_attrs %{
+      name: "some name",
+      subscriber: %{
+        user: %{
+          email: "heyhey@space-rocket.com",
+          password: "itsasupersecret"
+        }
+      }  
+    }
     @update_attrs %{name: "some updated name"}
     @invalid_attrs %{name: nil}
+    
 
     def org_fixture(attrs \\ %{}) do
-      {:ok, org} =
-        attrs
-        |> Enum.into(@valid_attrs)
-        |> Orgs.create_org()
+      subscriber = subscriber_fixture()
+      attrs = %{
+        name: "some name" 
+      }
+
+      {:ok, org} = Orgs.create_org(subscriber, attrs)
 
       org
     end
