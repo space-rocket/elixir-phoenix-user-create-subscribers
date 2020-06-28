@@ -8,7 +8,6 @@ defmodule MyApp.Orgs do
 
   alias MyApp.Orgs.Org
   alias MyApp.Billing.Subscriber
-  # alias MyApp.Accounts.User
 
   @doc """
   Returns the list of orgs.
