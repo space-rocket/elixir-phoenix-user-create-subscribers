@@ -1,4 +1,4 @@
-defmodule MyAppWeb.Subdomain.Router do
+defmodule MyAppWeb.SubdomainRouter do
   use MyAppWeb, :router
 
   import MyAppWeb.UserAuth

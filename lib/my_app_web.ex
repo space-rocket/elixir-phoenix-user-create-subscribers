@@ -24,6 +24,7 @@ defmodule MyAppWeb do
       import Plug.Conn
       import MyAppWeb.Gettext
       alias MyAppWeb.Router.Helpers, as: Routes
+      alias MyAppWeb.SubdomainRouter.Helpers, as: SubdomainRoutes
     end
   end
 
@@ -68,6 +69,7 @@ defmodule MyAppWeb do
       import MyAppWeb.ErrorHelpers
       import MyAppWeb.Gettext
       alias MyAppWeb.Router.Helpers, as: Routes
+      alias MyAppWeb.SubdomainRouter.Helpers, as: SubdomainRoutes
     end
   end
 
