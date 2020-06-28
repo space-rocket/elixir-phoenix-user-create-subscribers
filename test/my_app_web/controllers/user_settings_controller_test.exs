@@ -5,7 +5,8 @@ defmodule MyAppWeb.UserSettingsControllerTest do
   import MyApp.AccountsFixtures
 
   setup :register_and_log_in_user
-
+  setup :set_localhost
+  
   describe "GET /users/settings" do
     test "renders settings page", %{conn: conn} do
       conn = get(conn, Routes.user_settings_path(conn, :edit))

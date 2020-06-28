@@ -6,6 +6,8 @@ defmodule MyAppWeb.UserSessionControllerTest do
   setup do
     %{user: user_fixture()}
   end
+  
+  setup :set_localhost
 
   describe "GET /users/log_in" do
     test "renders log in page", %{conn: conn} do

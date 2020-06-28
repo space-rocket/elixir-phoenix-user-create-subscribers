@@ -66,4 +66,14 @@ defmodule MyAppWeb.ConnCase do
     |> Phoenix.ConnTest.init_test_session(%{})
     |> Plug.Conn.put_session(:user_token, token)
   end
+
+  def set_localhost(%{conn: conn}) do
+    conn = %{conn | host: "localhost"}
+    {:ok, conn: conn}
+  end
+
+  def set_subdomain(%{conn: conn}) do
+    conn = %{conn | host: "site-1"}
+    {:ok, conn: conn}
+  end
 end
