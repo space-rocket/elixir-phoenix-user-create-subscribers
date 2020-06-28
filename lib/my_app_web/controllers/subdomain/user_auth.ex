@@ -2,8 +2,8 @@ defmodule MyAppWeb.Subdomain.UserAuth do
   import Plug.Conn
   import Phoenix.Controller
 
-  alias MyApp.Accounts
-  alias MyAppWeb.Router.Helpers, as: Routes
+  alias MyApp.Subdomain.Accounts
+  alias MyAppWeb.SubdomainRouter.Helpers, as: SubdomainRoutes
 
   # Make the remember me cookie valid for 60 days.
   # If you want bump or reduce this value, also change
@@ -134,7 +134,7 @@ defmodule MyAppWeb.Subdomain.UserAuth do
       conn
       |> put_flash(:error, "You must log in to access this page.")
       |> maybe_store_return_to()
-      |> redirect(to: Routes.user_session_path(conn, :new))
+      |> redirect(to: SubdomainRoutes.user_session_path(conn, :new))
       |> halt()
     end
   end

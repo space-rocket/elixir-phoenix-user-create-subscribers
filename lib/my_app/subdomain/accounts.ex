@@ -78,7 +78,7 @@ defmodule MyApp.Subdomain.Accounts do
     IO.inspect(attrs)
     %User{}
     |> User.registration_changeset(attrs)
-    |> Repo.insert()
+    |> Repo.insert(prefix: Triplex.to_prefix("site-1"))
   end
 
   @doc """
@@ -220,7 +220,7 @@ defmodule MyApp.Subdomain.Accounts do
   """
   def generate_user_session_token(user) do
     {token, user_token} = UserToken.build_session_token(user)
-    Repo.insert!(user_token)
+    Repo.insert!(user_token, prefix: Triplex.to_prefix("site-1"))
     token
   end
 
@@ -260,7 +260,7 @@ defmodule MyApp.Subdomain.Accounts do
       {:error, :already_confirmed}
     else
       {encoded_token, user_token} = UserToken.build_email_token(user, "confirm")
-      Repo.insert!(user_token)
+      Repo.insert!(user_token, prefix: Triplex.to_prefix("site-1"))
       UserNotifier.deliver_confirmation_instructions(user, confirmation_url_fun.(encoded_token))
     end
   end
