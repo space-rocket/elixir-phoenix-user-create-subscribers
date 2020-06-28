@@ -46,6 +46,24 @@ defmodule MyApp.Billing do
   end
 
   @doc """
+  Creates a subscriber.
+
+  ## Examples
+
+      iex> create_subscriber(%{field: value})
+      {:ok, %Subscriber{}}
+
+      iex> create_subscriber(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_subscriber(attrs \\ %{}) do
+    %Subscriber{}
+    |> Subscriber.changeset(attrs)
+    |> Repo.insert()
+  end
+  
+  @doc """
   Updates a subscriber.
 
   ## Examples
