@@ -8,11 +8,11 @@
   <% end %>
 
   <%= label f, :email %>
-  <%= email_input f, :email, required: true %>
+  <%= email_input f, :email, required: true, value: "mchavez@space-rocket.com" %>
   <%= error_tag f, :email %>
 
   <%= label f, :password %>
-  <%= password_input f, :password, required: true %>
+  <%= password_input f, :password, required: true, value: "w77VrAe!v@le" %>
   <%= error_tag f, :password %>
 
   <div>
