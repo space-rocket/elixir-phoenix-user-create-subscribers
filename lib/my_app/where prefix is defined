@@ -1,0 +1,44 @@
+/Users/bigbassroller2017/Sites/multi-tenant-assoc/auth-migrations-test/my_app/lib/my_app/subdomain/accounts.ex:
+   40    def get_user_by_email_and_password(email, password)
+   41      when is_binary(email) and is_binary(password) do
+   42:       user = Repo.get_by(User, [email: email], prefix: Triplex.to_prefix("site-1"))
+   43      if User.valid_password?(user, password), do: user
+   44    end
+   ..
+   77      %User{}
+   78      |> User.registration_changeset(attrs)
+   79:     |> Repo.insert(prefix: Triplex.to_prefix("site-1"))
+   80    end
+   81  
+   ..
+  219    def generate_user_session_token(user) do
+  220      {token, user_token} = UserToken.build_session_token(user)
+  221:     Repo.insert!(user_token, prefix: Triplex.to_prefix("site-1"))
+  222      token
+  223    end
+  ...
+  228    def get_user_by_session_token(token) do
+  229      {:ok, query} = UserToken.verify_session_token_query(token)
+  230:     Repo.one(query, prefix: Triplex.to_prefix("site-1"))
+  231    end
+  232  
+  ...
+  259      else
+  260        {encoded_token, user_token} = UserToken.build_email_token(user, "confirm")
+  261:       Repo.insert!(user_token, prefix: Triplex.to_prefix("site-1"))
+  262        UserNotifier.deliver_confirmation_instructions(user, confirmation_url_fun.(encoded_token))
+  263      end
+
+/Users/bigbassroller2017/Sites/multi-tenant-assoc/auth-migrations-test/my_app/priv/repo/seeds.exs:
+   10  # We recommend using the bang functions (`insert!`, `update!`
+   11  # and so on) as they will fail if something goes wrong.
+   12: MyApp.Tenants.new("site-1")
+
+/Users/bigbassroller2017/Sites/multi-tenant-assoc/auth-migrations-test/my_app/test/support/conn_case.ex:
+   74  
+   75    def set_subdomain(%{conn: conn}) do
+   76:     conn = %{conn | host: "site-1"}
+   77      {:ok, conn: conn}
+   78    end
+
+8 matches across 4 files
