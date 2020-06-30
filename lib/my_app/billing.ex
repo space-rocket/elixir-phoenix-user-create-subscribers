@@ -55,6 +55,12 @@ defmodule MyApp.Billing do
     |> Repo.insert()
   end
 
+  def register_subscriber(user, attrs \\ %{}) do
+    %Subscriber{user_id: user.id}
+    |> Subscriber.changeset(attrs)
+    |> Repo.insert()
+  end
+
   @doc """
   Updates a subscriber.
 
